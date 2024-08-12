@@ -30,6 +30,7 @@ class HomeCubit extends Cubit<HomeState> {
    int skip = 0;
    int take = 10;
 
+   int x = 20 ;
 
   void scrollLeft(double distance) {
     final newOffset = (table.offset - distance).clamp(0.0, table.position.maxScrollExtent);
@@ -38,6 +39,7 @@ class HomeCubit extends Cubit<HomeState> {
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,
     );
+
 
     getAllBlog(0,10);
     emit(ScrollSusccessfulLeft());
