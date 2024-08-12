@@ -38,9 +38,8 @@ class HomeCubit extends Cubit<HomeState> {
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,
     );
-    skip = 10;
-    take = 5;
-    getAllBlog();
+
+    getAllBlog(0,10);
     emit(ScrollSusccessfulLeft());
   }
 
@@ -52,7 +51,7 @@ class HomeCubit extends Cubit<HomeState> {
       curve: Curves.easeOut,
     );
 
-    getAllBlog();
+    getAllBlog(10,10);
 
     emit(ScrollSusccessfulRigth());
   }
@@ -112,7 +111,7 @@ class HomeCubit extends Cubit<HomeState> {
   void load()async{
     await getSystemProfits();
     await getBlogType();
-    await getAllBlog();
+    await getAllBlog(0,10);
   }
 
   SystemProfitModel? systemProfit;
@@ -173,7 +172,7 @@ class HomeCubit extends Cubit<HomeState> {
 
 
   ///
-  Future getAllBlog() async {
+  Future getAllBlog(int skip , int take) async {
 
     emit(GetAllBlogLoading());
 

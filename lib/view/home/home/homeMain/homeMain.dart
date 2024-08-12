@@ -21,7 +21,7 @@ class HomeMain extends StatelessWidget {
   Widget build(BuildContext context) {
     HomeCubit.get(context).table.addListener(() {
       if (HomeCubit.get(context).table.position.pixels == HomeCubit.get(context).table.position.maxScrollExtent) {
-        HomeCubit.get(context).getAllBlog(); // Load more data when scrolled to end
+        HomeCubit.get(context).getAllBlog(10,10); // Load more data when scrolled to end
       }
     });
     return BlocConsumer<HomeCubit, HomeState>(
@@ -841,7 +841,9 @@ class HomeMain extends StatelessWidget {
                             Row(
                               children: [
                                 GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    HomeCubit.get(context).scrollLeft(900.w);
+                                  },
                                   child: Container(
                                     width: 109.w,
                                     height: 40.h,
