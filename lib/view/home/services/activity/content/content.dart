@@ -1,181 +1,222 @@
 import 'package:aser_dash_board/constant/color.dart';
-import 'package:aser_dash_board/constant/table/order%20product.dart';
-import 'package:aser_dash_board/constant/table/ordertable.dart';
-import 'package:aser_dash_board/logic/productCubit/products_cubit.dart';
+import 'package:aser_dash_board/constant/table/activityTable.dart';
+import 'package:aser_dash_board/logic/activity_cubit/activitycubit.dart';
+
 
 import 'package:aser_dash_board/widgets/customText/customtext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OrderProducts extends StatelessWidget {
-  PageController order = PageController();
-  OrderProducts({super.key,required this.order});
+class ActivityContent extends StatelessWidget {
+  PageController activity = PageController();
+  ActivityContent({super.key,required this.activity});
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
+              padding:  EdgeInsets.symmetric(vertical: 5.h,horizontal: 20.w),
               child: Row(
                 children: [
-                  CustomText(
-                      text: "Home",
-                      size: 12.sp,
-                      color: darkGrey,
-                      fontWeight: FontWeight.w600),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  GestureDetector(
-                      onTap: () {
-                        order.animateToPage(0,
-                            duration: Duration(milliseconds: 300),
-                            curve: Curves.easeIn);
-                      },
-                      child: CustomText(
-                          text: "Products<<",
-                          size: 12.sp,
-                          color: darkGrey,
-                          fontWeight: FontWeight.w600)),
-                  CustomText(
-                      text: "The grand Egyptian Museum.<<",
-                      size: 12.sp,
-                      color: black,
-                      fontWeight: FontWeight.w700),
+                  CustomText(text: "Services", size: 12.sp, color: darkGrey, fontWeight: FontWeight.w600,),
+                  SizedBox(width: 5.w,),
+                  CustomText(text: "Activity<<", size: 12.sp, color: black, fontWeight: FontWeight.w700)
                 ],
               ),
             ),
-
-            SizedBox(
-              height: 20.h,
-            ),
-
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.w),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap:(){
-                      order.animateToPage(2, duration: Duration(milliseconds: 300), curve: Curves.easeIn);
-                      ProductCubit.get(context).toggle(0);
-
-
-                    },
-                    child: Container(
-                      width: 167.w,
-                      height: 50.h,
-                      color:ProductCubit.get(context).change == 0 ? orange : white,
-
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+              padding:
+              EdgeInsets.symmetric(vertical: 30.h, horizontal: 30.w),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadiusDirectional.circular(20.r),
+                  color: white,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: 10.h, horizontal: 20.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
                         children: [
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Image.asset(
-                            "assets/images/home/services.png",
-                            color: black,
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
                           CustomText(
-                            text: "Service",
-                            size: 14.sp,
-                            color: black,
+                            text: "Total properties",
+                            size: 20.sp,
+                            color: blue,
                             fontWeight: FontWeight.w600,
-                            alignment: Alignment.center,
+                          ),
+                          Spacer(),
+                          CustomText(
+                            text: "560000.00",
+                            size: 20.sp,
+                            color: blue,
+                            fontWeight: FontWeight.w600,
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      ProductCubit.get(context).toggle(1);
-
-                    },
-                    child: Container(
-                      width: 167.w,
-                      height: 50.h,
-                      color:  ProductCubit.get(context).change == 1 ? orange : white,
-
-                      child: Row(
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Row(
                         children: [
+                          Container(
+                            width: 80.w,
+                            height: 45.h,
+                            decoration: BoxDecoration(
+                                color: lightGrey,
+                                borderRadius:
+                                BorderRadiusDirectional.circular(10.r)),
+                            child: CustomText(
+                              text: "Yearly",
+                              size: 14.sp,
+                              color: black,
+                              fontWeight: FontWeight.w600,
+                              alignment: Alignment.center,
+                            ),
+                          ),
                           SizedBox(
-                            width: 10.w,
+                            width: 20.w,
                           ),
-                          Image.asset(
-                            "assets/images/home/chart.png",
-                            color: black,
+                          Container(
+                            width: 80.w,
+                            height: 45.h,
+                            decoration: BoxDecoration(
+                                color: orange,
+                                borderRadius:
+                                BorderRadiusDirectional.circular(10.r)),
+                            child: CustomText(
+                              text: "Monthly",
+                              size: 14.sp,
+                              color: white,
+                              fontWeight: FontWeight.w600,
+                              alignment: Alignment.center,
+                            ),
                           ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          CustomText(
-                            text: "Orders",
-                            size: 14.sp,
-                            color: black,
-                            fontWeight: FontWeight.w600,
-                            alignment: Alignment.center,
+                          Spacer(),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: orange),
+                                borderRadius: BorderRadiusDirectional.circular(15.r)
+                            ),
+                            child: Padding(
+                              padding:  EdgeInsets.symmetric(horizontal: 5.w),
+                              child: DropdownButton(
+
+
+                                  focusColor: lightGrey,
+                                  dropdownColor: white,
+                                  icon: Icon(Icons.keyboard_arrow_down, color: orange, size: 30.sp),
+                                  borderRadius: BorderRadius.circular(10.r),
+
+                                  underline: SizedBox(),
+                                  value: ActivityCubit.get(context).choseHours,
+                                  hint:CustomText(text:  "يناير", size: 12.sp, color: darkGrey, fontWeight: FontWeight.w600),
+                                  //ExamCubit.get(context).choseHours,
+                                  items: [ "ديسمبر","نوقمبر","اكتوبر","ابريل","مارس",'يناير'].map((e) =>
+                                      DropdownMenuItem(
+
+                                        value: e,
+                                        child: Padding(
+                                          padding:  EdgeInsets.only(right: 20.w),
+                                          child: CustomText(text: e,color: orange,fontWeight: FontWeight.w700,size: 16.sp),
+                                        ),)
+                                  ).toList(),
+                                  onChanged: (val){
+                                    ActivityCubit.get(context).choseHoursFunction(val);
+                                  }),
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      order.animateToPage(3, duration: Duration(milliseconds: 300), curve: Curves.easeIn);
-                      ProductCubit.get(context).toggle(2);
-
-
-
-                    },
-                    child: Container(
-                      width: 167.w,
-                      height: 50.h,
-                      color: ProductCubit.get(context).change == 2 ? orange : white,
-
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Image.asset(
-                            "assets/images/home/chart.png",
-                            color: black,
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          CustomText(
-                            text: "Insights",
-                            size: 14.sp,
-                            color: black,
-                            fontWeight: FontWeight.w600,
-                            alignment: Alignment.center,
-                          ),
-                        ],
+                      SizedBox(
+                        height: 20.h,
                       ),
-                    ),
+                      Container(
+                        height: 150.h,
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) => SizedBox(
+                            width: 20.w,
+                          ),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 1,
+                          itemBuilder: (context, index) {
+                            var items = [
+                              {
+                                "image": "assets/images/home/accom.png",
+                                "title": "Water play Center",
+                                "route": "accommodations",
+                                "price": "100.00 ",
+                              },
+
+
+                            ];
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, items[index]["route"]!);
+                              },
+                              child: Container(
+                                width: 200.w,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadiusDirectional.circular(
+                                        20.r),
+                                    color:
+                                    Color.fromRGBO(249, 239, 233, 1)),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 15.h, horizontal: 10.w),
+                                      child: CustomText(
+                                          text: items[index]["title"]!,
+                                          size: 12.sp,
+                                          color: darkGrey,
+                                          alignment: Alignment.centerLeft,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 15.h, horizontal: 10.w),
+                                      child: Row(
+                                        children: [
+                                          CustomText(
+                                              text: items[index]['price']!,
+                                              size: 24.sp,
+                                              color: black,
+                                              fontWeight: FontWeight.w600),
+                                          Spacer(),
+                                          Image.asset(
+                                              items[index]['image']!)
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-
             SizedBox(
-              height: 50.h,
+              height: 30.h,
             ),
-
             Padding(
               padding:  EdgeInsets.symmetric(horizontal: 20.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     child: Row(
@@ -183,9 +224,10 @@ class OrderProducts extends StatelessWidget {
                         Column(
                           children: [
                             CustomText(
-                                text: "Type",
+                                text: "Activity Type",
                                 size: 16.sp,
                                 color: black,
+                                alignment: Alignment.centerLeft,
                                 fontWeight: FontWeight.w600),
                             SizedBox(
                               height: 10.h,
@@ -214,13 +256,9 @@ class OrderProducts extends StatelessWidget {
                                               color: orange, size: 30.sp)),
                                       borderRadius: BorderRadius.circular(10.r),
                                       underline: SizedBox(),
-                                      value: ProductCubit.get(context).accomandtionType,
+                                      value: ActivityCubit.get(context).goverment,
                                       hint: CustomText(text: "Type", size: 12.sp, color: black, fontWeight: FontWeight.w600),
-                                      items: [
-                                        "Camp",
-                                        "Hotel",
-                                        "apertment"
-                                      ]
+                                      items: ["5", "15", "10"]
                                           .map((e) => DropdownMenuItem(
                                         value: e,
                                         child: Padding(
@@ -237,8 +275,8 @@ class OrderProducts extends StatelessWidget {
                                       ))
                                           .toList(),
                                       onChanged: (val) {
-                                        ProductCubit.get(context)
-                                            .changeAccomandtionype(val);
+                                        ActivityCubit.get(context)
+                                            .changeGovernment(val);
                                       }),
                                 ),
                               ),
@@ -249,8 +287,6 @@ class OrderProducts extends StatelessWidget {
                     ),
                   ),
 
-
-
                   Padding(
 
                     padding:  EdgeInsets.symmetric(vertical: 10.h),
@@ -260,16 +296,16 @@ class OrderProducts extends StatelessWidget {
                       child: Column(
                         children: [
                           CustomText(
-                              text: " Order Date",
+                              text: " Addition Date",
                               size: 16.sp,
                               color: black,
                               fontWeight: FontWeight.w600),
                           TextFormField(
-                            controller: ProductCubit.get(context).addtionalDate,
+                            controller: ActivityCubit.get(context).addtionalDate,
                             maxLines: 1,
                             readOnly: true,
                             onTap: (){
-                              ProductCubit.get(context).PickDate(context, ProductCubit.get(context).addtionalDate);
+                              ActivityCubit.get(context).PickDate(context, ActivityCubit.get(context).addtionalDate);
                             },
                             validator: (value) {},
                             style: TextStyle(
@@ -318,7 +354,7 @@ class OrderProducts extends StatelessWidget {
                         Column(
                           children: [
                             CustomText(
-                                text: "  Order Status",
+                                text: " Price",
                                 size: 16.sp,
                                 color: black,
                                 fontWeight: FontWeight.w600),
@@ -349,13 +385,9 @@ class OrderProducts extends StatelessWidget {
                                               color: orange, size: 30.sp)),
                                       borderRadius: BorderRadius.circular(10.r),
                                       underline: SizedBox(),
-                                      value: ProductCubit.get(context).status,
-                                      hint: CustomText(text: "Service status", size: 12.sp, color: black, fontWeight: FontWeight.w600),
-                                      items: [
-                                        "panding",
-                                        "active",
-                                        "complete"
-                                      ]
+                                      value: ActivityCubit.get(context).status,
+                                      hint: CustomText(text: "price", size: 12.sp, color: black, fontWeight: FontWeight.w600),
+                                      items: ["100", "200", "300"]
                                           .map((e) => DropdownMenuItem(
                                         value: e,
                                         child: Padding(
@@ -372,7 +404,7 @@ class OrderProducts extends StatelessWidget {
                                       ))
                                           .toList(),
                                       onChanged: (val) {
-                                        ProductCubit.get(context)
+                                        ActivityCubit.get(context)
                                             .changeStatus(val);
                                       }),
                                 ),
@@ -384,42 +416,35 @@ class OrderProducts extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: 20.h,),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Padding(
-                        padding:  EdgeInsets.only(top: 30.h),
-                        child: CustomText(text: "Reset", size: 18.sp, color: darkGrey, fontWeight: FontWeight.w400,textDecoration: TextDecoration.underline,),
-                      ),
-                      SizedBox(width: 10.w,),
-                      Padding(
-                        padding:  EdgeInsets.only(top: 30.h,right: 20.w,left: 20.w),
-                        child: Container(
-                          width: 120.w,
-                          height: 50.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadiusDirectional.circular(10.r),
-                            color: orange,
-                          ),
-
-                          child: CustomText(text: "Search", size: 18.sp, color: white, fontWeight: FontWeight.w400,alignment: Alignment.center,)
-                          ,
-                        ),
-                      )
-                    ],
+                  Padding(
+                    padding:  EdgeInsets.only(top: 30.h),
+                    child: CustomText(text: "Reset", size: 18.sp, color: darkGrey, fontWeight: FontWeight.w400,textDecoration: TextDecoration.underline,),
                   ),
+
+                  Padding(
+                    padding:  EdgeInsets.only(top: 30.h,right: 20.w,left: 20.w),
+                    child: Container(
+                      width: 120.w,
+                      height: 50.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadiusDirectional.circular(10.r),
+                        color: orange,
+                      ),
+
+                      child: CustomText(text: "Search", size: 18.sp, color: white, fontWeight: FontWeight.w400,alignment: Alignment.center,)
+                      ,
+                    ),
+                  )
 
 
 
                 ],
               ),
             ),
-
             SizedBox(
-              height: 50.h,
+              height: 30.h,
             ),
+
 
             Padding(
               padding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 30.h),
@@ -442,9 +467,36 @@ class OrderProducts extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            CustomText(text: "Products", size: 20.sp, color: black, fontWeight: FontWeight.w600),
+                            CustomText(text: "Activity", size: 20.sp, color: black, fontWeight: FontWeight.w600),
                             SizedBox(width: 30.w,),
-                            CustomText(text: "( 30 Product)", size: 16.sp, color: darkGrey, fontWeight: FontWeight.w500),
+                            CustomText(text: "( 30 Activity)", size: 16.sp, color: darkGrey, fontWeight: FontWeight.w500),
+                            Spacer(),
+                            GestureDetector(
+                              onTap: (){
+                                activity.animateToPage(5, duration: Duration(milliseconds: 20), curve: Curves.easeIn);
+                              },
+                              child: Container(
+                                width: 80.w,
+                                height: 40.h,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.r),
+                                    color: orange
+                                ),
+                                child: Padding(
+                                  padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                                  child: Row(
+
+                                    children: [
+                                      Icon(Icons.add,color: white,),
+                                      SizedBox(width: 5.w,),
+
+                                      CustomText(text: "Add", size: 16.sp, color: white, fontWeight: FontWeight.w700,alignment: Alignment.center,),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+
 
 
 
@@ -503,7 +555,7 @@ class OrderProducts extends StatelessWidget {
                         Container(
 
 
-                          child: OrderTableProduct(product: order,),
+                          child: ActivityTable(activity: activity,),
                         ),
                         SizedBox(height: 20.h),
                         Row(
@@ -570,6 +622,10 @@ class OrderProducts extends StatelessWidget {
                 ),
               ),
             ),
+
+            SizedBox(height: 20.h),
+
+
 
           ],
         ),

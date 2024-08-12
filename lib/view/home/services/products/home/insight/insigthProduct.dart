@@ -96,7 +96,7 @@ class InsightsProducts extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: (){
-                      insightsProduct.animateToPage(3, duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+                      insightsProduct.animateToPage(4, duration: Duration(milliseconds: 300), curve: Curves.easeIn);
                       ProductCubit.get(context).toggle(1);
 
 

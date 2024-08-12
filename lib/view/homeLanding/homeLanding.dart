@@ -1,20 +1,16 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'dart:ui';
-
-
 import 'package:aser_dash_board/constant/color.dart';
 import 'package:aser_dash_board/logic/homeNavigator/home_naviagtor.dart';
 import 'package:aser_dash_board/logic/homeNavigator/home_state.dart';
+import 'package:aser_dash_board/view/compaines/compaines.dart';
 import 'package:aser_dash_board/view/home/booking/booking.dart';
-import 'package:aser_dash_board/view/home/compaines/compaines.dart';
 import 'package:aser_dash_board/view/home/home/home.dart';
 import 'package:aser_dash_board/view/home/notification/notification.dart';
 import 'package:aser_dash_board/view/home/orders/order.dart';
-import 'package:aser_dash_board/view/home/services/activity/activity.dart';
+import 'package:aser_dash_board/view/home/services/activity/activity_home/activity_home.dart';
 import 'package:aser_dash_board/view/home/services/products/home/productHome.dart';
-import 'package:aser_dash_board/view/home/services/products/home/products.dart';
-import 'package:aser_dash_board/view/home/services/services.dart';
+import 'package:aser_dash_board/view/home/services/accomandation/services.dart';
 import 'package:aser_dash_board/view/home/services/trips/home/tripsHome.dart';
 import 'package:aser_dash_board/view/home/settings/settings.dart';
 import 'package:aser_dash_board/widgets/customText/customtext.dart';
@@ -34,7 +30,7 @@ class HomeLanding extends StatelessWidget {
     Services(),
     Trips(),
     ProductHome(),
-    Activity(),
+    ActivityHome(),
     Compaines(),
     Booking(),
     Orders(),

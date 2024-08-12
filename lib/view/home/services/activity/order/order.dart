@@ -1,16 +1,16 @@
 import 'package:aser_dash_board/constant/color.dart';
-import 'package:aser_dash_board/constant/table/order%20product.dart';
-import 'package:aser_dash_board/constant/table/ordertable.dart';
-import 'package:aser_dash_board/logic/productCubit/products_cubit.dart';
+import 'package:aser_dash_board/constant/table/orderTableActivity.dart';
+import 'package:aser_dash_board/logic/activity_cubit/activitycubit.dart';
+
 
 import 'package:aser_dash_board/widgets/customText/customtext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OrderProducts extends StatelessWidget {
-  PageController order = PageController();
-  OrderProducts({super.key,required this.order});
+class OrderActivity extends StatelessWidget {
+  PageController orderActivity = PageController();
+  OrderActivity({super.key,required this.orderActivity});
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +32,12 @@ class OrderProducts extends StatelessWidget {
                   ),
                   GestureDetector(
                       onTap: () {
-                        order.animateToPage(0,
+                        orderActivity.animateToPage(0,
                             duration: Duration(milliseconds: 300),
                             curve: Curves.easeIn);
                       },
                       child: CustomText(
-                          text: "Products<<",
+                          text: "Activity<<",
                           size: 12.sp,
                           color: darkGrey,
                           fontWeight: FontWeight.w600)),
@@ -60,15 +60,15 @@ class OrderProducts extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap:(){
-                      order.animateToPage(2, duration: Duration(milliseconds: 300), curve: Curves.easeIn);
-                      ProductCubit.get(context).toggle(0);
+                      orderActivity.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+                      ActivityCubit.get(context).toggle(0);
 
 
                     },
                     child: Container(
                       width: 167.w,
                       height: 50.h,
-                      color:ProductCubit.get(context).change == 0 ? orange : white,
+                      color:ActivityCubit.get(context).change == 0 ? orange : white,
 
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -96,13 +96,13 @@ class OrderProducts extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: (){
-                      ProductCubit.get(context).toggle(1);
+                      ActivityCubit.get(context).toggle(1);
 
                     },
                     child: Container(
                       width: 167.w,
                       height: 50.h,
-                      color:  ProductCubit.get(context).change == 1 ? orange : white,
+                      color:  ActivityCubit.get(context).change == 1 ? orange : white,
 
                       child: Row(
                         children: [
@@ -129,8 +129,8 @@ class OrderProducts extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: (){
-                      order.animateToPage(3, duration: Duration(milliseconds: 300), curve: Curves.easeIn);
-                      ProductCubit.get(context).toggle(2);
+                      orderActivity.animateToPage(2, duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+                      ActivityCubit.get(context).toggle(2);
 
 
 
@@ -138,7 +138,7 @@ class OrderProducts extends StatelessWidget {
                     child: Container(
                       width: 167.w,
                       height: 50.h,
-                      color: ProductCubit.get(context).change == 2 ? orange : white,
+                      color: ActivityCubit.get(context).change == 2 ? orange : white,
 
                       child: Row(
                         children: [
@@ -214,7 +214,7 @@ class OrderProducts extends StatelessWidget {
                                               color: orange, size: 30.sp)),
                                       borderRadius: BorderRadius.circular(10.r),
                                       underline: SizedBox(),
-                                      value: ProductCubit.get(context).accomandtionType,
+                                      value: ActivityCubit.get(context).accomandtionType,
                                       hint: CustomText(text: "Type", size: 12.sp, color: black, fontWeight: FontWeight.w600),
                                       items: [
                                         "Camp",
@@ -237,7 +237,7 @@ class OrderProducts extends StatelessWidget {
                                       ))
                                           .toList(),
                                       onChanged: (val) {
-                                        ProductCubit.get(context)
+                                        ActivityCubit.get(context)
                                             .changeAccomandtionype(val);
                                       }),
                                 ),
@@ -265,11 +265,11 @@ class OrderProducts extends StatelessWidget {
                               color: black,
                               fontWeight: FontWeight.w600),
                           TextFormField(
-                            controller: ProductCubit.get(context).addtionalDate,
+                            controller: ActivityCubit.get(context).addtionalDate,
                             maxLines: 1,
                             readOnly: true,
                             onTap: (){
-                              ProductCubit.get(context).PickDate(context, ProductCubit.get(context).addtionalDate);
+                              ActivityCubit.get(context).PickDate(context, ActivityCubit.get(context).addtionalDate);
                             },
                             validator: (value) {},
                             style: TextStyle(
@@ -349,7 +349,7 @@ class OrderProducts extends StatelessWidget {
                                               color: orange, size: 30.sp)),
                                       borderRadius: BorderRadius.circular(10.r),
                                       underline: SizedBox(),
-                                      value: ProductCubit.get(context).status,
+                                      value: ActivityCubit.get(context).status,
                                       hint: CustomText(text: "Service status", size: 12.sp, color: black, fontWeight: FontWeight.w600),
                                       items: [
                                         "panding",
@@ -372,7 +372,7 @@ class OrderProducts extends StatelessWidget {
                                       ))
                                           .toList(),
                                       onChanged: (val) {
-                                        ProductCubit.get(context)
+                                        ActivityCubit.get(context)
                                             .changeStatus(val);
                                       }),
                                 ),
@@ -442,7 +442,7 @@ class OrderProducts extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            CustomText(text: "Products", size: 20.sp, color: black, fontWeight: FontWeight.w600),
+                            CustomText(text: "Activity", size: 20.sp, color: black, fontWeight: FontWeight.w600),
                             SizedBox(width: 30.w,),
                             CustomText(text: "( 30 Product)", size: 16.sp, color: darkGrey, fontWeight: FontWeight.w500),
 
@@ -503,7 +503,7 @@ class OrderProducts extends StatelessWidget {
                         Container(
 
 
-                          child: OrderTableProduct(product: order,),
+                          child: OrderTableActivity(orderActivity: orderActivity,),
                         ),
                         SizedBox(height: 20.h),
                         Row(
