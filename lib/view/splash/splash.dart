@@ -2,8 +2,7 @@ import 'dart:async';
 
 
 import 'package:aser_dash_board/constant/color.dart';
-import 'package:aser_dash_board/repositories/shared/cacheNetwork.dart';
-import 'package:aser_dash_board/widgets/customText/customtext.dart';
+import 'package:aser_dash_board/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,8 +12,14 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(seconds: 5), ()async {
-      Navigator.pushReplacementNamed(context, 'login');
+    Timer(const Duration(seconds: 2), () async {
+
+      if (token == null) {
+        Navigator.pushReplacementNamed(context, 'login');
+      }
+        else{
+          Navigator.pushReplacementNamed(context, 'homeLanding');
+      }
 
     });
     return Scaffold(

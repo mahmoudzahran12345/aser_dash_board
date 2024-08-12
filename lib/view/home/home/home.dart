@@ -20,24 +20,19 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocProvider(
-      create: (BuildContext context) => HomeCubit(),
-      child: BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return PageView(
-            controller: pageController,
-            children: [
-              HomeMain(controller: pageController,),
-              Addadevirtes(controller: pageController,),
-              Active(controller: pageController,),
-              Blog(blog: pageController,),
-              AddBlog(controller: pageController,),
+      create: (BuildContext context) => HomeCubit()..load(),
+      child: PageView(
+        controller: pageController,
+        children: [
+
+          HomeMain(controller: pageController,),
+          Blog(blog: pageController,),
+          Active(controller: pageController,),
+          AddBlog(controller: pageController,),
 
 
 
-            ],
-          );
-        },
+        ],
       ),
     );
   }

@@ -232,23 +232,7 @@ class Blog extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 30.w),
                 child: Row(
                   children: [
-                    GestureDetector(
-                      onTap:(){
-                        blog.animateToPage(0,duration: Duration(milliseconds: 60), curve: Curves.easeIn);
-                      },
-                      child: Container(
-                        width: 167.w,
-                        height: 50.h,
-                        color: orange,
-                        child: CustomText(
-                          text: "Advertisments",
-                          size: 14.sp,
-                          color: white,
-                          fontWeight: FontWeight.w600,
-                          alignment: Alignment.center,
-                        ),
-                      ),
-                    ),
+
                     Container(
                       width: 167.w,
                       height: 50.h,

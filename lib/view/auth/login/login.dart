@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:aser_dash_board/constant/color.dart';
 import 'package:aser_dash_board/logic/auth/auth/authCubit.dart';
 import 'package:aser_dash_board/logic/auth/auth/authState.dart';
@@ -16,6 +18,7 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: BlocConsumer<AuthCubit, AuthState>(
@@ -34,14 +37,14 @@ class Login extends StatelessWidget {
           }
            if (state is LoginLoaded){
              Navigator.pushNamed(
-                 context, 'homeLandingAdmin');
+                 context, 'homeLanding');
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('تم التسجيل بنجاح'),
               backgroundColor: Colors.green,
             ));
 
           }
-           if (state is LoginError){
+           else if (state is LoginError){
             ScaffoldMessenger.of(context).showSnackBar( SnackBar(
               content: Text(state.error),
               backgroundColor: Colors.red,
@@ -63,28 +66,32 @@ class Login extends StatelessWidget {
 
               children: [
 
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Container(
-                          width: 568.w,
-                          height: 688.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadiusDirectional.circular(20.r),
-                            color: orange
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(child: Text("Nomadica",style: TextStyle(fontWeight:FontWeight.w700,letterSpacing : 10.w,fontSize: 60.sp,color: white),)),
-                              Center(child: Text("Unleash the explorer within you",style: TextStyle(fontWeight:FontWeight.w700,letterSpacing : 5.w ,fontSize: 10.sp,color: white),)),
+                Form(
+                  key: AuthCubit.get(context).formKey,
 
-                            ],
-                          )),
-                    ),
-                  ],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding:  EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Container(
+                            width: 568.w,
+                            height: 688.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadiusDirectional.circular(20.r),
+                              color: orange
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(child: Text("Nomadica",style: TextStyle(fontWeight:FontWeight.w700,letterSpacing : 10.w,fontSize: 60.sp,color: white),)),
+                                Center(child: Text("Unleash the explorer within you",style: TextStyle(fontWeight:FontWeight.w700,letterSpacing : 5.w ,fontSize: 10.sp,color: white),)),
+
+                              ],
+                            )),
+                      ),
+                    ],
+                  ),
                 ),
 
                 Spacer(),
@@ -133,7 +140,12 @@ class Login extends StatelessWidget {
                           height: 56,
                           width: 458,
                           hintText: 'enter email',
-                          validator: () {},
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "enter email";
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       SizedBox(
@@ -160,8 +172,18 @@ class Login extends StatelessWidget {
                             height: 56,
                             width: 458,
                             hintText: 'enter Password',
-                            validator: () {},
-                            isPassword: true),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "enter Password";
+                              }
+                              return null;
+                            },
+                            icnon: IconButton(onPressed: (){
+                              AuthCubit.get(context).togglePasswordVisibility();
+                            }, icon:AuthCubit.get(context).isVisible == true ? Icon(Icons.visibility) :
+                            const Icon(Icons.visibility_off)
+                            ),
+                            isPassword: AuthCubit.get(context).isVisible),
                       ),
                       SizedBox(
                         height: 20.h,
@@ -193,33 +215,17 @@ class Login extends StatelessWidget {
                           size: 24.sp,
                           fontWeight: FontWeight.w700,
                           function: () {
-                            // AuthCubit.get(context).login();
-                            Navigator.pushNamed(context, "homeLanding");
+                            if(AuthCubit.get(context).formKey.currentState!.validate()){
+
+                              AuthCubit.get(context).login();
+                            }
+
+
                           },
                         ),
 
                       ),
-                      SizedBox(width: 5.w,),
-                      Row(
-                        children: [
-                          const Text(
-                              "Don’t have an account?",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Color.fromRGBO(140, 140, 140, 1)
-                              )
-                          ),
-                          Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: orange
-                              )
-                          ),
-                        ],
-                      )
+
                     ],
                   ),
                 ),

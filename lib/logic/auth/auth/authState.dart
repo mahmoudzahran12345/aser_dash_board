@@ -19,6 +19,10 @@ class LoginLoaded extends AuthState {
 
 }
 
+class PasswordVisibilityChanged extends AuthState {
+
+}
+
 class LoginError extends AuthState {
 final String error;
 

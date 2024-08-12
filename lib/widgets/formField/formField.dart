@@ -11,6 +11,7 @@ Widget inputField({
   required double height,
   required Function validator,
   final Color? background,
+  IconButton? icnon,
   bool isPassword = false,
   int maxLines = 1,
 }) {
@@ -27,15 +28,7 @@ Widget inputField({
       ),
       obscureText: isPassword,
       decoration: InputDecoration(
-        suffixIcon: isPassword
-            ? IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.remove_red_eye,
-            color: Color(0xFF0D002C),
-          ),
-        )
-            : null,
+        suffixIcon: icnon,
         filled: true,
         fillColor: Color(0xFFF7F7F7),
         contentPadding: EdgeInsets.symmetric(
