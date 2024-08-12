@@ -820,7 +820,7 @@ class HomeMain extends StatelessWidget {
                             SizedBox(height: 20.h),
                             SizedBox(
                                 height: 650.h,
-                                width: 880.w,
+                                width: 850.w,
                                 child: ListView.separated(
                                     scrollDirection: Axis.horizontal,
                                     controller: HomeCubit.get(context).table,
