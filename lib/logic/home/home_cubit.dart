@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aser_dash_board/model/blogType/blogType.dart';
+import 'package:aser_dash_board/model/getAllBlogModel/getBlogModel.dart';
 import 'package:aser_dash_board/model/systemProfits/systemProfits.dart';
 import 'package:aser_dash_board/repositories/api/api%20consumer/apiConsumer.dart';
 import 'package:aser_dash_board/repositories/api/enpoint/enpoint.dart';
@@ -25,9 +26,36 @@ class HomeCubit extends Cubit<HomeState> {
   TextEditingController endDate = TextEditingController();
   TextEditingController addtionalDate = TextEditingController();
   final storage = new FlutterSecureStorage();
+  ScrollController table = ScrollController();
+   int skip = 0;
+   int take = 10;
 
 
+  void scrollLeft(double distance) {
+    final newOffset = (table.offset - distance).clamp(0.0, table.position.maxScrollExtent);
+    table.animateTo(
+      newOffset,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+    skip = 10;
+    take = 5;
+    getAllBlog();
+    emit(ScrollSusccessfulLeft());
+  }
 
+  void scrollRight(double distance) {
+    final newOffset = (table.offset + distance).clamp(0.0, table.position.maxScrollExtent);
+    table.animateTo(
+      newOffset,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+
+    getAllBlog();
+
+    emit(ScrollSusccessfulRigth());
+  }
 
   File? image ;
   Future getImage(ImageSource imageSource) async {
@@ -67,6 +95,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   String ? fix;
   String? chooseYears;
+
   void chooseYearFunction(value) {
     emit(StartDateChooseYears());
     chooseYears = value;
@@ -83,8 +112,7 @@ class HomeCubit extends Cubit<HomeState> {
   void load()async{
     await getSystemProfits();
     await getBlogType();
-
-
+    await getAllBlog();
   }
 
   SystemProfitModel? systemProfit;
@@ -133,6 +161,41 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  /// get all category
+  GetAllBlogModel? getAllBlogModel;
+
+
+  ///
+
+
+  bool isLoadingMore = false;
+
+
+
+  ///
+  Future getAllBlog() async {
+
+    emit(GetAllBlogLoading());
+
+    final token = await storage.read(key: 'token');
+    print("tokn is person blog = $token");
+    http.Response response = await ApiConsumer().get(uri:
+
+    "${EndPoint.apiUrl}Blogs/GetAllBlogsForAdmin?skip=$skip&take=$take"
+        , token: token);
+    var responseData = await json.decode(response.body);
+    if (response.statusCode == 200) {
+      getAllBlogModel = GetAllBlogModel.fromJson(responseData);
+      print(responseData);
+
+      emit(GetAllBlogSuccessful());
+    } else {
+      print(response.body);
+      emit(GetAllBlogError(response.body));
+    }
+  }
+
+
 
 
   /// choose type
@@ -146,6 +209,18 @@ class HomeCubit extends Cubit<HomeState> {
 
 
   String? choseMonth ;
+
+
+  String? status ;
+
+  String? statusConvert;
+
+  void changeStatus(value) {
+
+    status = value;
+    emit(ChangeStatusLoaded());
+  }
+
 
 
   void choseMonthFunction(value) {
@@ -176,12 +251,12 @@ String? accomandtionType;
     emit(EndStart());
   }
 
-  String? status;
-  void changeStatus(value) {
-    emit(StartDate());
-    status = value;
-    emit(EndStart());
-  }
+  // String? status;
+  // void changeStatus(value) {
+  //   emit(StartDate());
+  //   status = value;
+  //   emit(EndStart());
+  // }
 
 
 

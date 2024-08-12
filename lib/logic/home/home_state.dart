@@ -8,6 +8,9 @@ class EndStart extends HomeState{}
 
 class ChoseMonthLoaded extends HomeState{}
 
+class ChangeStatusLoaded extends HomeState{}
+
+
 
 class PickDateBlocLoading extends HomeState{}
 
@@ -23,6 +26,10 @@ class GetSystemProfitsLoading extends HomeState{}
 
 class GetSystemProfitsByIdSuccessful extends HomeState{}
 
+class ScrollSusccessfulLeft extends HomeState{}
+class ScrollSusccessfulRigth extends HomeState{}
+
+
 class GetSystemProfitsError extends HomeState{
   final String error;
 
@@ -31,6 +38,9 @@ class GetSystemProfitsError extends HomeState{
 
 ///
 class GetBlogLoading extends HomeState{}
+
+class GetAllBlogLoadedMore extends HomeState{}
+
 
 class GetBlogByIdSuccessful extends HomeState{}
 
@@ -44,3 +54,13 @@ class GetBlogError extends HomeState{
 class chooseTypeLoading extends HomeState{}
 
 class chooseTypeLoaded extends HomeState{}
+///
+class GetAllBlogLoading extends HomeState{}
+
+class GetAllBlogSuccessful extends HomeState{}
+
+class GetAllBlogError extends HomeState{
+  final String error;
+
+  GetAllBlogError(this.error);
+}

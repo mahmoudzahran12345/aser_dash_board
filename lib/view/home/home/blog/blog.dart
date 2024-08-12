@@ -664,7 +664,7 @@ class Blog extends StatelessWidget {
                       ),
                       SizedBox(height: 20.h),
                       Container(
-                          child: HotelAccomandtion(controller: blog,))
+                          child: HotelAccomandtion(controller: blog,context: context,))
 
 
 
