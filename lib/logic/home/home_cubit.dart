@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:aser_dash_board/model/blogType/blogType.dart';
 import 'package:aser_dash_board/model/getAllBlogModel/getBlogModel.dart';
+import 'package:aser_dash_board/model/get_one_blog_model/get_one_blog_model.dart';
 import 'package:aser_dash_board/model/systemProfits/systemProfits.dart';
 import 'package:aser_dash_board/repositories/api/api%20consumer/apiConsumer.dart';
 import 'package:aser_dash_board/repositories/api/enpoint/enpoint.dart';
@@ -32,6 +33,12 @@ class HomeCubit extends Cubit<HomeState> {
 
    int x = 20 ;
 
+   bool read = true;
+    void changeRead(){
+      read = !read;
+      emit(ChangeReadLoaded());
+    }
+
   void scrollLeft(double distance) {
     final newOffset = (table.offset - distance).clamp(0.0, table.position.maxScrollExtent);
     table.animateTo(
@@ -49,7 +56,7 @@ class HomeCubit extends Cubit<HomeState> {
     final newOffset = (table.offset + distance).clamp(0.0, table.position.maxScrollExtent);
     table.animateTo(
       newOffset,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300,),
       curve: Curves.easeOut,
     );
 
@@ -174,27 +181,67 @@ class HomeCubit extends Cubit<HomeState> {
 
 
   ///
-  Future getAllBlog(int skip , int take) async {
+
+  TextEditingController search = TextEditingController();
+
+  Future getAllBlog(int? skip , int? take) async {
+
+    String? id;
 
     emit(GetAllBlogLoading());
 
     final token = await storage.read(key: 'token');
-    print("tokn is person blog = $token");
-    http.Response response = await ApiConsumer().get(uri:
 
-    "${EndPoint.apiUrl}Blogs/GetAllBlogsForAdmin?skip=$skip&take=$take"
+    http.Response response = await ApiConsumer().get(uri:
+        search.text.trim().isEmpty ?
+    "${EndPoint.apiUrl}Blogs/GetAllBlogsForAdmin?skip=$skip&take=$take" :
+     "${EndPoint.apiUrl}Blogs/GetAllBlogsForAdmin?searchTerm=${search.text.trim()}"
+
+
         , token: token);
     var responseData = await json.decode(response.body);
+
     if (response.statusCode == 200) {
       getAllBlogModel = GetAllBlogModel.fromJson(responseData);
-      print(responseData);
-
       emit(GetAllBlogSuccessful());
+
     } else {
       print(response.body);
       emit(GetAllBlogError(response.body));
     }
+
+
   }
+
+
+  /// get one blog
+  GetOneBlogModel? getOneBlogModel;
+  Future getOneBlog(String id) async {
+
+
+
+    emit(GetOneBlogLoading());
+
+    final token = await storage.read(key: 'token');
+
+    http.Response response = await ApiConsumer().get(uri:
+
+    "${EndPoint.apiUrl}Blogs/Admin/GetBlogForAdmin?BlogId=$id"
+        , token: token);
+    var responseData = await json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      getOneBlogModel = GetOneBlogModel.fromJson(responseData);
+      emit(GetOneBlogSuccessful());
+
+    } else {
+      print(response.body);
+      emit(GetOneBlogError(response.body));
+    }
+
+
+  }
+
 
 
 
